@@ -1,0 +1,17 @@
+function force_hard_reload_after_login() {
+    // Only apply this script on the frontend, not the admin area
+    if (!is_admin()) {
+        ?>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD) {
+                    return; // Do nothing if it's already a reload
+                }
+                // Hard reload the page after user logs in
+                window.location.reload(true);
+            });
+        </script>
+        <?php
+    }
+}
+add_action('wp_login', 'force_hard_reload_after_login');
